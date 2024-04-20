@@ -1,0 +1,1505 @@
+{ "config": {
+    "basic": {
+      "music": [
+        {
+          "url": "__BACKEND__/audio/Crystal.mp3",
+          "volume": 0.25,
+          "name": "Crystal Waters"
+        }
+      ],
+      "simultaneous": false,
+      "backgrounds": [
+        {
+          "url": "__BACKEND__/images/tiles.jpg",
+          "name": "Tiles"
+        }
+      ],
+      "bgOpacity": 0.5,
+      "back": "__BACKEND__/images/coins/back.png",
+      "alignment": "center",
+      "play": "__BACKEND__/sfx/coins.mp3",
+      "best": "__BACKEND__/sfx/best.mp3",
+      "win": "__BACKEND__/sfx/win.mp3",
+      "ace": "__BACKEND__/sfx/ace.mp3",
+      "lose": "__BACKEND__/sfx/lose.mp3",
+      "spinner": "__BACKEND__/images/spinner.gif"
+    },
+    "@@editor": [
+      {
+        "key": "basic",
+        "name": "Basic",
+        "icon": "🝙",
+        "source": "basic.json",
+        "fields": [
+          {
+            "key": "music",
+            "name": "Background Music and Sounds",
+            "description": "List of files for background audio",
+            "type": "object<Music>[]",
+            "arrayOptions": {
+              "addItemLabel": "Add Audio File"
+            },
+            "typeOptions": {
+              "Music": {
+                "name": {
+                  "name": "Title",
+                  "description": "Title",
+                  "type": "text"
+                },
+                "url": {
+                  "name": "URL",
+                  "description": "URL of music file",
+                  "type": "sound"
+                },
+                "volume": {
+                  "name": "Volume",
+                  "description": "Volume of playback",
+                  "type": "range",
+                  "typeOptions": {
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01
+                  }
+                }
+              }
+            }
+          },
+          {
+            "key": "simultaneous",
+            "name": "Simultaneous Play?",
+            "type": "boolean",
+            "description": "Play all background audio simultaneously?"
+          },
+          {
+            "key": "backgrounds",
+            "name": "Background Images",
+            "description": "List of files for background images",
+            "type": "object<Image>[]",
+            "arrayOptions": {
+              "addItemLabel": "Add Image file"
+            },
+            "typeOptions": {
+              "Image": {
+                "name": {
+                  "name": "Title",
+                  "description": "Title",
+                  "type": "text"
+                },
+                "url": {
+                  "name": "URL",
+                  "description": "URL of image to use as background",
+                  "type": "image"
+                }
+              }
+            }
+          },
+          {
+            "key": "bgOpacity",
+            "name": "Background Opacity",
+            "description": "Opacity of background image",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 1,
+              "step": 0.05
+            }
+          },
+          {
+            "key": "back",
+            "name": "Back of coin",
+            "type": "image",
+            "description": "URL of image for reverse of coin (required for Flip hint)"
+          },
+          {
+            "key": "alignment",
+            "name": "Alignment of coins",
+            "description": "Alignment of the coins",
+            "type": "select",
+            "typeOptions": {
+              "placeholder": "Choose an option...",
+              "options": [
+                {
+                  "value": "flex-start",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Center"
+                },
+                {
+                  "value": "flex-end",
+                  "label": "right"
+                }
+              ]
+            }
+          },
+          {
+            "key": "play",
+            "name": "Play Sound",
+            "type": "sound",
+            "description": "URL of sound to use for Play button"
+          },
+          {
+            "key": "best",
+            "name": "AI Win Sound",
+            "type": "sound",
+            "description": "Sound to use when AI wins"
+          },
+          {
+            "key": "lose",
+            "name": "AI Lose Sound",
+            "type": "sound",
+            "description": "Sound to use when AI loses"
+          },
+          {
+            "key": "ace",
+            "name": "Ace Sound",
+            "type": "sound",
+            "description": "Sound to use player beats AI with no hints"
+          },
+          {
+            "key": "win",
+            "name": "Win Sound",
+            "type": "sound",
+            "description": "Sound to use for winning a 2-player game "
+          },
+          {
+            "key": "spinner",
+            "name": "Loading Animation",
+            "type": "image",
+            "description": "URL of image to use for loading spinner"
+          }
+        ]
+      },
+      {
+        "key": "colors",
+        "name": "Colors",
+        "icon": "💅",
+        "source": "colors.json",
+        "fields": [
+          {
+            "key": "textColor",
+            "name": "Text color",
+            "description": "Color for text",
+            "type": "color"
+          },
+          {
+            "key": "promptColor",
+            "name": "Prompt color",
+            "description": "Color to tell you it's your turn",
+            "type": "color"
+          },
+          {
+            "key": "backgroundColor",
+            "name": "Background color",
+            "description": "Color for background",
+            "type": "color"
+          },
+          {
+            "key": "opacity",
+            "name": "Overlay opacity",
+            "description": "Opacity of overlay for Rules and Winner (%)",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 100,
+              "step": 1
+            }
+          }
+        ]
+      },
+      {
+        "key": "counters",
+        "name": "Counters",
+        "icon": "🀐",
+        "source": "counters.json",
+        "fields": [
+          {
+            "key": "row1",
+            "name": "Piece for Row 1",
+            "description": "Assets for Game Piece for Row 1",
+            "type": "object<Piece>[]",
+            "arrayOptions": {
+              "min": 1,
+              "max": 1,
+              "addItemLabel": "Add Default Piece"
+            },
+            "typeOptions": {
+              "Piece": {
+                "title": {
+                  "name": "Title",
+                  "description": "Title to use in tip (optional)",
+                  "type": "text"
+                },
+                "image": {
+                  "name": "Image",
+                  "description": "Image for the Piece",
+                  "type": "image"
+                },
+                "select": {
+                  "name": "Select Sound (optional)",
+                  "description": "Sound to Play When Piece is Selected",
+                  "type": "sound"
+                },
+                "reject": {
+                  "name": "Deselect Sound (optional)",
+                  "description": "Sound to Play When Piece is Deselected",
+                  "type": "sound"
+                }
+              }
+            }
+          },
+          {
+            "key": "row2",
+            "name": "Pieces for Row 2",
+            "description": "Assets for Game Pieces for Row 2",
+            "type": "object<Piece>[]",
+            "arrayOptions": {
+              "min": 0,
+              "max": 3,
+              "addItemLabel": "Add Piece for Row 2"
+            },
+            "typeOptions": {
+              "Piece": {
+                "title": {
+                  "name": "Title",
+                  "description": "Title to use in tip (optional)",
+                  "type": "text"
+                },
+                "image": {
+                  "name": "Image",
+                  "description": "Image for the Piece",
+                  "type": "image"
+                },
+                "select": {
+                  "name": "Select Sound (optional)",
+                  "description": "Sound to Play When Piece is Selected",
+                  "type": "sound"
+                },
+                "reject": {
+                  "name": "Deselect Sound (optional)",
+                  "description": "Sound to Play When Piece is Deselected",
+                  "type": "sound"
+                }
+              }
+            }
+          },
+          {
+            "key": "row3",
+            "name": "Pieces for Row 3",
+            "description": "Assets for Game Pieces for Row 3",
+            "type": "object<Piece>[]",
+            "arrayOptions": {
+              "min": 0,
+              "max": 5,
+              "addItemLabel": "Add Piece for Row 3"
+            },
+            "typeOptions": {
+              "Piece": {
+                "title": {
+                  "name": "Title",
+                  "description": "Title to use in tip (optional)",
+                  "type": "text"
+                },
+                "image": {
+                  "name": "Image",
+                  "description": "Image for the Piece",
+                  "type": "image"
+                },
+                "select": {
+                  "name": "Select Sound (optional)",
+                  "description": "Sound to Play When Piece is Selected",
+                  "type": "sound"
+                },
+                "reject": {
+                  "name": "Deselect Sound (optional)",
+                  "description": "Sound to Play When Piece is Deselected",
+                  "type": "sound"
+                }
+              }
+            }
+          },
+          {
+            "key": "row4",
+            "name": "Pieces for Row 4",
+            "description": "Assets for Game Pieces for Row 4",
+            "type": "object<Piece>[]",
+            "arrayOptions": {
+              "min": 0,
+              "max": 7,
+              "addItemLabel": "Add Piece for Row 4"
+            },
+            "typeOptions": {
+              "Piece": {
+                "title": {
+                  "name": "Title",
+                  "description": "Title to use in tip (optional)",
+                  "type": "text"
+                },
+                "image": {
+                  "name": "Image",
+                  "description": "Image for the Piece",
+                  "type": "image"
+                },
+                "select": {
+                  "name": "Select Sound (optional)",
+                  "description": "Sound to Play When Piece is Selected",
+                  "type": "sound"
+                },
+                "reject": {
+                  "name": "Deselect Sound (optional)",
+                  "description": "Sound to Play When Piece is Deselected",
+                  "type": "sound"
+                }
+              }
+            }
+          },
+          {
+            "key": "extras",
+            "name": "Extra Pieces",
+            "description": "Assets for Extra Game Pieces",
+            "type": "object<Piece>[]",
+            "arrayOptions": {
+              "addItemLabel": "Add Extra Piece"
+            },
+            "typeOptions": {
+              "Piece": {
+                "title": {
+                  "name": "Title",
+                  "description": "Title to use in tip (optional)",
+                  "type": "text"
+                },
+                "image": {
+                  "name": "Image",
+                  "description": "Image for the Piece",
+                  "type": "image"
+                },
+                "select": {
+                  "name": "Select Sound (optional)",
+                  "description": "Sound to Play When Piece is Selected",
+                  "type": "sound"
+                },
+                "reject": {
+                  "name": "Deselect Sound (optional)",
+                  "description": "Sound to Play When Piece is Deselected",
+                  "type": "sound"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "key": "credits",
+        "name": "Credits",
+        "icon": "🏆",
+        "source": "credits.json",
+        "fields": [
+          {
+            "key": "credits",
+            "name": "Title",
+            "description": "Title for Credits section",
+            "type": "text"
+          },
+          {
+            "key": "by",
+            "name": "By",
+            "description": "'by' attribution",
+            "type": "text"
+          },
+          {
+            "key": "h1Size",
+            "name": "Title Size",
+            "description": "Font Size for Title (% of width)",
+            "type": "range",
+            "typeOptions": {
+              "min": 1,
+              "max": 10,
+              "step": 0.1
+            }
+          },
+          {
+            "key": "h2Size",
+            "name": "Header Size",
+            "description": "Font Size for Credit Header (% of width)",
+            "type": "range",
+            "typeOptions": {
+              "min": 1,
+              "max": 10,
+              "step": 0.1
+            }
+          },
+          {
+            "key": "pSize",
+            "name": "Credit Size",
+            "description": "Font Size for Credit (% of width)",
+            "type": "range",
+            "typeOptions": {
+              "min": 1,
+              "max": 10,
+              "step": 0.1
+            }
+          },
+          {
+            "key": "credit",
+            "name": "Credit",
+            "description": "List of authors to credit",
+            "type": "object<Credit>[]",
+            "typeOptions": {
+              "Credit": {
+                "name": {
+                  "name": "Asset name",
+                  "description": "Short description of asset",
+                  "type": "text"
+                },
+                "author": {
+                  "name": "Author",
+                  "description": "Author or company",
+                  "type": "text"
+                },
+                "url": {
+                  "name": "URL",
+                  "description": "Link to original asset",
+                  "type": "text"
+                },
+                "license": {
+                  "name": "License",
+                  "description": "Name of license",
+                  "type": "text"
+                },
+                "licenseURL": {
+                  "name": "License URL",
+                  "description": "Link to text of license",
+                  "type": "text"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "key": "display",
+        "name": "Display",
+        "icon": "🖼",
+        "source": "display.json",
+        "fields": [
+          {
+            "key": "bgColor",
+            "name": "Card Background",
+            "description": "Color for card background",
+            "type": "color"
+          },
+          {
+            "key": "selected",
+            "name": "Selected Background",
+            "description": "Color for card background when selected",
+            "type": "color"
+          },
+          {
+            "key": "selectOpacity",
+            "name": "Select Opacity",
+            "description": "Opacity of selected item",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 1,
+              "step": 0.01
+            }
+          },
+          {
+            "key": "shadowLength",
+            "name": "Shadow Length",
+            "description": "Length of shadow thrown by objects",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 2,
+              "step": 0.01
+            }
+          },
+          {
+            "key": "shadowColor",
+            "name": "Shadow Color",
+            "type": "color",
+            "description": "Color of shadow thrown by objects"
+          },
+          {
+            "key": "borderColor",
+            "name": "Border Color",
+            "description": "Color for card edges",
+            "type": "color"
+          },
+          {
+            "key": "borderWidth",
+            "name": "Border width",
+            "description": "Width of borders (%)",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 1,
+              "step": 0.01
+            }
+          },
+          {
+            "key": "borderRadius",
+            "name": "Corner radius",
+            "description": "Radius of card corners",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 3,
+              "step": 0.1
+            }
+          },
+          {
+            "key": "hints",
+            "name": "Hints",
+            "description": "Text for Hint (optional)",
+            "type": "object<Hint>[]",
+            "arrayOptions": {
+              "addItemLabel": "Add Hint Text "
+            },
+            "typeOptions": {
+              "Hint": {
+                "text": {
+                  "name": "Text",
+                  "description": "Text to flash as a hint",
+                  "type": "text"
+                }
+              }
+            }
+          },
+          {
+            "key": "flashColor",
+            "name": "Flash Color",
+            "description": "Color of flashed text",
+            "type": "color"
+          },
+          {
+            "key": "flashOpacity",
+            "name": "Flash Opacity",
+            "description": "Opacity of flashed text",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 1,
+              "step": 0.05
+            }
+          },
+          {
+            "key": "flashDuration",
+            "name": "Flash Duration",
+            "description": "Duration of flash (milliseconds)",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 2000,
+              "step": 100
+            }
+          },
+          {
+            "key": "scarColor",
+            "name": "Remanent Color",
+            "description": "Color for of text after flash",
+            "type": "color"
+          },
+          {
+            "key": "scarOpacity",
+            "name": "Remanent opacity",
+            "description": "Opacity of text after flash",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 1,
+              "step": 0.05
+            }
+          },
+          {
+            "key": "scarFade",
+            "name": "Fade Duration",
+            "description": "Duration of fade after flash (milliseconds)",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 1000,
+              "step": 50
+            }
+          }
+        ]
+      },
+      {
+        "key": "menu",
+        "name": "Menu",
+        "icon": "☰",
+        "source": "menu.json",
+        "fields": [
+          {
+            "key": "restart",
+            "name": "Restart",
+            "description": "Text of link to restart the game",
+            "type": "text"
+          },
+          {
+            "key": "allowHints",
+            "name": "Allow hints",
+            "description": "Show hints menu?",
+            "type": "boolean"
+          },
+          {
+            "key": "hints",
+            "name": "Hints label",
+            "description": "Label for Receive Hints checkbox",
+            "type": "text"
+          },
+          {
+            "key": "hintsByDefault",
+            "name": "Hints by Default?",
+            "description": "Activate Hints by default?",
+            "type": "boolean"
+          },
+          {
+            "key": "allowUndo",
+            "name": "Allow undo",
+            "description": "Allow undo button?",
+            "type": "boolean"
+          },
+          {
+            "key": "undo",
+            "name": "Undo label",
+            "description": "Label for Show Undo checkbox",
+            "type": "text"
+          },
+          {
+            "key": "undoByDefault",
+            "name": "Undo by Default?",
+            "description": "Activate Undo Button by default?",
+            "type": "boolean"
+          },
+          {
+            "key": "allowSteps",
+            "name": "Allow steps",
+            "description": "Allow step by step progression?",
+            "type": "boolean"
+          },
+          {
+            "key": "steps",
+            "name": "Steps label",
+            "description": "Label for Proceed Step-by-Step checkbox",
+            "type": "text"
+          },
+          {
+            "key": "stepsByDefault",
+            "name": "Steps by Default?",
+            "description": "Activate Step-by-Step by default?",
+            "type": "boolean"
+          },
+          {
+            "key": "allowTips",
+            "name": "Allow tips",
+            "description": "Allow tips for specific cards?",
+            "type": "boolean"
+          },
+          {
+            "key": "tips",
+            "name": "Show Correct Move label",
+            "description": "Label for Show Correct Move checkbox",
+            "type": "text"
+          },
+          {
+            "key": "tipType",
+            "name": "Correct Move Hint",
+            "description": "Which technique to use to show the correct move",
+            "type": "select",
+            "typeOptions": {
+              "placeholder": "Choose an option...",
+              "options": [
+                {
+                  "value": "name",
+                  "label": "Name"
+                },
+                {
+                  "value": "flip",
+                  "label": "Flip"
+                },
+                {
+                  "value": "zalgo",
+                  "label": "Zalgo"
+                }
+              ]
+            }
+          },
+          {
+            "key": "tipsByDefault",
+            "name": "Best Move by Default?",
+            "description": "Activate Show Correct Move by default?",
+            "type": "boolean"
+          },
+          {
+            "key": "allowGroups",
+            "name": "Allow groups",
+            "description": "Allow groups checkbox?",
+            "type": "boolean"
+          },
+          {
+            "key": "groups",
+            "name": "Groups label",
+            "description": "Label for Group Items checkbox",
+            "type": "text"
+          },
+          {
+            "key": "groupDuration",
+            "name": "Group Duration",
+            "description": "Duration of Grouping Animation (seconds)",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 2,
+              "step": 0.1
+            }
+          },
+          {
+            "key": "groupsByDefault",
+            "name": "Groups by Default?",
+            "description": "Activate Groups by default?",
+            "type": "boolean"
+          },
+          {
+            "key": "music",
+            "name": "Music icon",
+            "description": "Icon for Play Background Music",
+            "type": "image"
+          },
+          {
+            "key": "nomusic",
+            "name": "No Music icon",
+            "description": "Icon for No Background Music",
+            "type": "image"
+          },
+          {
+            "key": "sfx",
+            "name": "Sound Effects icon",
+            "description": "Icon for Play Sound Effects",
+            "type": "image"
+          },
+          {
+            "key": "nosfx",
+            "name": "No Sound icon",
+            "description": "Icon for No Sound Effects",
+            "type": "image"
+          },
+          {
+            "key": "credits",
+            "name": "Credits icon",
+            "description": "Icon for Show Credits",
+            "type": "image"
+          }
+        ]
+      },
+      {
+        "key": "metadata",
+        "name": "Metadata",
+        "icon": "🛈",
+        "source": "metadata.json",
+        "fields": [
+          {
+            "key": "title",
+            "name": "Title",
+            "description": "The name of the game",
+            "type": "string"
+          },
+          {
+            "key": "description",
+            "name": "Description",
+            "description": "Short description of the game",
+            "type": "string"
+          },
+          {
+            "key": "icon",
+            "name": "Small icon",
+            "description": "32x32 PNG image",
+            "type": "image"
+          },
+          {
+            "key": "icon192",
+            "name": "Medium icon",
+            "description": "192x192 PNG image",
+            "type": "image"
+          },
+          {
+            "key": "icon512",
+            "name": "Large icon",
+            "description": "512x512 PNG image",
+            "type": "image"
+          }
+        ]
+      },
+      {
+        "key": "random",
+        "name": "Randomization",
+        "icon": "🎲",
+        "source": "random.json",
+        "fields": [
+          {
+            "key": "maximize",
+            "name": "Maximize Image Size",
+            "description": "Ignore spatial random settings to give all available space to images",
+            "type": "boolean"
+          },
+          {
+            "key": "xAxis",
+            "name": "X Axis",
+            "description": "Use a random horizontal position",
+            "type": "boolean"
+          },
+          {
+            "key": "yAxis",
+            "name": "Y Axis",
+            "description": "Range of randomness for vertical position (%)",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 100,
+              "step": 1
+            }
+          },
+          {
+            "key": "rotation",
+            "name": "Rotation",
+            "description": "Rotate pieces randomly (best with circular images)",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 360,
+              "step": 1
+            }
+          },
+          {
+            "key": "single",
+            "name": "Single Image",
+            "description": "Use the image for Row 1 everywhere (overrides Use All Images)",
+            "type": "boolean"
+          },
+          {
+            "key": "useExtras",
+            "name": "Use All Images",
+            "description": "Choose randomly from all available images",
+            "type": "boolean"
+          },
+          {
+            "key": "order",
+            "name": "Order",
+            "description": "Place pieces in a random order",
+            "type": "boolean"
+          },
+          {
+            "key": "sounds",
+            "name": "Sounds",
+            "description": "Use any sound with any image",
+            "type": "boolean"
+          }
+        ]
+      },
+      {
+        "key": "select",
+        "name": "Marching Ants",
+        "icon": "🐜",
+        "source": "select.json",
+        "fields": [
+          {
+            "key": "enableSelect",
+            "name": "Enable Drag-to-Select",
+            "description": "Allow play to select multiple items by dragging",
+            "type": "boolean"
+          },
+          {
+            "key": "enableDeselect",
+            "name": "Enable Drag-to-deselect",
+            "description": "Allow play to deselect multiple items by dragging",
+            "type": "boolean"
+          },
+          {
+            "key": "color",
+            "name": "Color",
+            "description": "Base color for marching ants",
+            "type": "color"
+          },
+          {
+            "key": "length",
+            "name": "Length",
+            "description": "Length of dash",
+            "type": "range",
+            "typeOptions": {
+              "min": 1,
+              "max": 100,
+              "step": 1
+            }
+          },
+          {
+            "key": "ratio",
+            "name": "Length:width ratio",
+            "description": "Ratio of width to length [1 (= dot) - 200 (= line)]",
+            "type": "range",
+            "typeOptions": {
+              "min": 1,
+              "max": 200,
+              "step": 1
+            }
+          },
+          {
+            "key": "radius",
+            "name": "Corner radius",
+            "description": "Radius of corners [0 (= square) - 100 (= round)]",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 100,
+              "step": 1
+            }
+          },
+          {
+            "key": "speed",
+            "name": "Speed",
+            "description": "Speed [0 (= static) - 100 (= fast)]",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 100,
+              "step": 1
+            }
+          },
+          {
+            "key": "opacity",
+            "name": "Opacity",
+            "description": "Opacity of selected area [0 (= transparent) - 1 (= opaque)]",
+            "type": "range",
+            "typeOptions": {
+              "min": 0,
+              "max": 1,
+              "step": 0.01
+            }
+          }
+        ]
+      },
+      {
+        "key": "strings",
+        "name": "Strings",
+        "icon": "📚",
+        "source": "strings.json",
+        "fields": [
+          {
+            "key": "title",
+            "name": "Name",
+            "description": "The name of the game",
+            "type": "text"
+          },
+          {
+            "key": "slogan",
+            "name": "Slogan",
+            "description": "Snappy description of the game",
+            "type": "text"
+          },
+          {
+            "key": "showRules",
+            "name": "Show Rules",
+            "description": "Text for the Show Rules toggle button",
+            "type": "text"
+          },
+          {
+            "key": "rules",
+            "name": "Rules",
+            "description": "The description of how to play",
+            "type": "textarea"
+          },
+          {
+            "key": "playAI",
+            "name": "Play against AI",
+            "description": "Text for the Play the AI button",
+            "type": "text"
+          },
+          {
+            "key": "playMate",
+            "name": "Play against a human",
+            "description": "Text for the Play a Friend button",
+            "type": "text"
+          },
+          {
+            "key": "yourTurn",
+            "name": "Play",
+            "description": "Text for button when it's your turn against the AI",
+            "type": "text"
+          },
+          {
+            "key": "toPlay",
+            "name": "Play prompt",
+            "description": "Text for \"Player X>> to play<<\"",
+            "type": "text"
+          },
+          {
+            "key": "play",
+            "name": "Play",
+            "description": "Text for button to press when you've finished your turn",
+            "type": "text"
+          },
+          {
+            "key": "aiThinking",
+            "name": "Wait",
+            "description": "Text to show while AI is \"thinking\"",
+            "type": "text"
+          },
+          {
+            "key": "you-win",
+            "name": "Simple Win over AI",
+            "description": "Text to show when you beat the AI in a simpler game",
+            "type": "textarea"
+          },
+          {
+            "key": "you-top",
+            "name": "Guided Victory over AI",
+            "description": "Text to show when you beat the AI in a full game, but with hints",
+            "type": "textarea"
+          },
+          {
+            "key": "ace",
+            "name": "Pure Victory over AI",
+            "description": "Text to show when you beat the AI outright",
+            "type": "textarea"
+          },
+          {
+            "key": "AI-wins",
+            "name": "Beaten by AI",
+            "description": "Text to show when the AI beats you",
+            "type": "textarea"
+          },
+          {
+            "key": "ai",
+            "name": "AI",
+            "description": "Name of AI",
+            "type": "text"
+          },
+          {
+            "key": "player1",
+            "name": "Player 1",
+            "description": "Name of player 1",
+            "type": "text"
+          },
+          {
+            "key": "player2",
+            "name": "Player 2",
+            "description": "Name of player 2",
+            "type": "text"
+          },
+          {
+            "key": "wins",
+            "name": "Winner announcement",
+            "description": "Text for \"Player X>> wins!<<\"",
+            "type": "text"
+          },
+          {
+            "key": "undo",
+            "name": "Undo",
+            "description": "Text to show on Undo button",
+            "type": "text"
+          },
+          {
+            "key": "fontFamily",
+            "name": "Font Family",
+            "description": "Google fonts link to font to use on page",
+            "type": "text"
+          },
+          {
+            "key": "fontSize",
+            "name": "Font Size",
+            "description": "Font size for rules",
+            "type": "range",
+            "typeOptions": {
+              "min": 2,
+              "max": 12,
+              "step": 0.1
+            }
+          },
+          {
+            "key": "aceSize",
+            "name": "Ace Font Size",
+            "description": "Font size for defeating AI",
+            "type": "range",
+            "typeOptions": {
+              "min": 2,
+              "max": 12,
+              "step": 0.1
+            }
+          },
+          {
+            "key": "buttonSize",
+            "name": "Button Font Size",
+            "description": "Font size for buttons",
+            "type": "range",
+            "typeOptions": {
+              "min": 2,
+              "max": 12,
+              "step": 0.1
+            }
+          }
+        ]
+      }
+    ],
+    "colors": {
+      "backgroundColor": "#0157be",
+      "textColor": "#fff",
+      "promptColor": "#006",
+      "opacity": 95
+    },
+    "counters": {
+      "row1": [
+        {
+          "title": "Austria",
+          "select": "__BACKEND__/sfx/coinFlic.mp3",
+          "reject": "__BACKEND__/sfx/reject.mp3",
+          "image": "__BACKEND__/images/coins/cent01.png"
+        }
+      ],
+      "row2": [
+        {
+          "image": "__BACKEND__/images/coins/cent02.png",
+          "title": "Belgium",
+          "select": "__BACKEND__/sfx/coinFlip.mp3"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent03.png",
+          "title": "Cyprus",
+          "select": "__BACKEND__/sfx/coinFlip1.mp3"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent04.png",
+          "title": "Germany",
+          "select": "__BACKEND__/sfx/coinFlip2.mp3"
+        }
+      ],
+      "row3": [
+        {
+          "image": "__BACKEND__/images/coins/cent05.png",
+          "title": "Estonia",
+          "select": "__BACKEND__/sfx/coinFlip3.mp3"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent06.png",
+          "title": "Spain",
+          "select": "__BACKEND__/sfx/coinFlip4.mp3"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent07.png",
+          "title": "Finland"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent08.png",
+          "title": "France"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent09.png",
+          "title": "Greece"
+        }
+      ],
+      "row4": [
+        {
+          "image": "__BACKEND__/images/coins/cent10.png",
+          "title": "Ireland"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent11.png",
+          "title": "Italy"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent12.png",
+          "title": "Luxembourg"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent13.png",
+          "title": "Monaco"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent14.png",
+          "title": "Malta"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent15.png",
+          "title": "The Netherlands"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent16.png",
+          "title": "Portugal"
+        }
+      ],
+      "extras": [
+        {
+          "image": "__BACKEND__/images/coins/cent17.png",
+          "title": "Slovenia"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent18.png",
+          "title": "Slovakia"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent19.png",
+          "title": "San Marino"
+        },
+        {
+          "image": "__BACKEND__/images/coins/cent20.png",
+          "title": "Vatican City"
+        }
+      ]
+    },
+    "credits": {
+      "credits": "Acknowledgments",
+      "by": "by",
+      "h1Size": 6,
+      "h2Size": 4,
+      "pSize": 2.3,
+      "credit": [
+        {
+          "name": "Loading spinner",
+          "author": "Nevit Dilmen",
+          "url": "https://commons.wikimedia.org/wiki/File:Gray_circles_rotate.gif\"",
+          "license": "Creative Commons Attribution-Share Alike 3.0 Unported",
+          "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0/deed.en"
+        },
+        {
+          "name": "Crystal Waters",
+          "author": "Purple Planet Music",
+          "url": "https://www.purple-planet.com/dreamy",
+          "license": "Creative Commons Attribution License 3.0",
+          "licenseURL": "https://www.purple-planet.com/using-our-free-music"
+        },
+        {
+          "name": "Coin quarter drop on a coin surface",
+          "author": "GOSFX",
+          "url": "https://freesound.org/people/GOSFX/sounds/323403/",
+          "license": "Creative Commons Attribution 3.0 Unported",
+          "licenseURL": "https://creativecommons.org/licenses/by/3.0/"
+        },
+        {
+          "name": "Coin Flipping",
+          "author": "InspectorJ",
+          "url": "https://freesound.org/people/InspectorJ/sounds/342242/",
+          "license": "Creative Commons Attribution 3.0 Unported",
+          "licenseURL": "https://creativecommons.org/licenses/by/3.0/"
+        },
+        {
+          "name": " Coins Being Dropped",
+          "author": "FractalStudios",
+          "url": "https://freesound.org/people/FractalStudios/sounds/363090/",
+          "license": "CC0 1.0 Universal Domain Dedication",
+          "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+          "name": "CoinFlic",
+          "author": "Sojan",
+          "url": "https://freesound.org/people/Sojan/sounds/334298/",
+          "license": "CC0 1.0 Universal Domain Dedication",
+          "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+          "name": "Coins Hit",
+          "author": "potentjello",
+          "url": "https://freesound.org/people/potentjello/sounds/194128/",
+          "license": "CC0 1.0 Universal Domain Dedication",
+          "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+          "name": "Coins_Single",
+          "author": "LittleRobotSoundFactory",
+          "url": "https://freesound.org/people/LittleRobotSoundFactory/sounds/276099/",
+          "license": "Creative Commons Attribution 3.0 Unported",
+          "licenseURL": "https://creativecommons.org/licenses/by/3.0/"
+        },
+        {
+          "name": "Coin Flip",
+          "author": "bone666138",
+          "url": "https://freesound.org/people/bone666138/sounds/198877/",
+          "license": "Creative Commons Attribution 3.0 Unported",
+          "licenseURL": "https://creativecommons.org/licenses/by/3.0/"
+        },
+        {
+          "name": "Coins",
+          "author": "Aiwha",
+          "url": "https://freesound.org/people/Aiwha/sounds/250704/",
+          "license": "Creative Commons Attribution 3.0 Unported",
+          "licenseURL": "https://creativecommons.org/licenses/by/3.0/"
+        },
+        {
+          "name": "Coin Spill",
+          "author": "clairinski",
+          "url": "https://freesound.org/people/clairinski/sounds/184372/",
+          "license": "CC0 1.0 Universal Domain Dedication",
+          "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+          "name": "Taps and Coin Noises",
+          "author": "vanszisounddesign",
+          "url": "https://freesound.org/people/vanszisounddesign/sounds/435814/",
+          "license": "CC0 1.0 Universal Domain Dedication",
+          "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+          "name": "Money Bag",
+          "author": "PhilSavlem",
+          "url": "https://freesound.org/people/PhilSavlem/sounds/338260/",
+          "license": "CC0 1.0 Universal Domain Dedication",
+          "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+          "name": "Blue tiles",
+          "author": "pxhere",
+          "url": "https://pxhere.com/en/photo/1360748",
+          "license": "CC0 Public Domain Dedication",
+          "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+          "name": "Coins",
+          "author": "stux",
+          "url": "https://pixabay.com/photos/cent-1-coin-currency-europe-money-400275/",
+          "license": "Pixabay License",
+          "licenseURL": "https://pixabay.com/service/license/"
+        },
+        {
+          "name": "1 euro reverse",
+          "author": "stux",
+          "url": "https://pixabay.com/photos/cent-euro-cent-currency-3466615/",
+          "license": "Pixabay License",
+          "licenseURL": "https://pixabay.com/service/license/"
+        },
+        {
+          "name": "Chilanka font",
+          "author": "Santhosh Thottingal",
+          "url": "https://fonts.google.com/specimen/Chilanka",
+          "license": "Open Font License",
+          "licenseURL": "http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL_web"
+        }
+      ]
+    },
+    "display": {
+      "bgColor": "transparent",
+      "selected": "transparent",
+      "selectOpacity": 0.5,
+      "shadowLength": 0.5,
+      "shadowColor": "rgba(0, 0, 0, 0.75)",
+      "borderColor": "#696",
+      "borderWidth": 0,
+      "borderRadius": 0,
+      "hints": [],
+      "flashColor": "#fff",
+      "flashOpacity": 1,
+      "flashDuration": 0,
+      "scarColor": "#fff",
+      "scarOpacity": 0.5,
+      "scarFade": 250
+    },
+    "menu": {
+      "restart": "Start new game",
+      "allowHints": true,
+      "hints": "Use hints against AI",
+      "hintsByDefault": true,
+      "allowUndo": true,
+      "undo": "Undo button",
+      "undoByDefault": true,
+      "allowSteps": true,
+      "steps": "Step by step",
+      "stepsByDefault": true,
+      "allowTips": true,
+      "tips": "Show best move",
+      "tipType": "flip",
+      "tipsByDefault": false,
+      "allowGroups": true,
+      "groups": "Show groups",
+      "groupDuration": 0.5,
+      "groupsByDefault": false,
+      "music": "__BACKEND__/images/music.svg",
+      "nomusic": "__BACKEND__/images/nomusic.svg",
+      "sfx": "__BACKEND__/images/audio.svg",
+      "nosfx": "__BACKEND__/images/noaudio.svg",
+      "credits": "__BACKEND__/images/credits.svg"
+    },
+    "metadata": {
+      "title": "Nim",
+      "description": "The game that will beat you",
+      "icon": "__BACKEND__/icons/icon.png",
+      "icon192": "__BACKEND__/icons/icon192.png",
+      "icon512": "__BACKEND__/icons/icon512.png"
+    },
+    "random": {
+      "maximize": false,
+      "xAxis": true,
+      "yAxis": 33,
+      "rotation": 360,
+      "single": false,
+      "useExtras": true,
+      "order": false,
+      "sounds": true
+    },
+    "select": {
+      "enableSelect": true,
+      "enableDeselect": true,
+      "color": "#4788c7",
+      "length": "50",
+      "ratio": "5",
+      "radius": "",
+      "speed": "10",
+      "opacity": "0.25"
+    },
+    "strings": {
+      "title": "Nim",
+      "slogan": "The game that will beat you",
+      "showRules": "Show Rules",
+      "rules": "When it's your turn\ntake one or more coins\nfrom one of the lines\nthen press *Play*.\n\nThe player\nwho takes the last coin\n*loses*.",
+      "playAI": "Play the AI",
+      "playMate": "Play a friend",
+      "yourTurn": "Your turn",
+      "play": "Play",
+      "aiThinking": "The AI is thinking...",
+      "you-win": "You win!",
+      "you-top": "You won...\n\n... but can you beat the AI\nwithout using any hints?",
+      "ace": "Excellent!\n\nCongratulations!\n\nYou beat the AI\nwithout using any hints!\n\nNow you can remix\na game of your own\nand challenge\nall your friends...",
+      "AI-wins": "The AI wins.\n\nBut don't give up!\n\nWith a little effort\nand the help of the hints\nyou can learn its trick.",
+      "ai": "AI",
+      "player1": "Player 1",
+      "player2": "Player 2",
+      "toPlay": " to play",
+      "wins": " wins!",
+      "undo": "Undo",
+      "fontFamily": "https://fonts.googleapis.com/css?family=Chilanka",
+      "fontSize": "6",
+      "aceSize": "8.5",
+      "buttonSize": "3.5"
+    },
+    "deploy": {
+      "frontend": {
+        "output": "frontend/build",
+        "type": "static",
+        "commands": [
+          "cd frontend",
+          "npm install",
+          "export NODE_ENV=production && npm run build"
+        ]
+      }
+    },
+    "develop": {
+      "frontend": {
+        "path": "frontend",
+        "port": 8080,
+        "events": {
+          "started": "[webpack] Frontend server started",
+          "building": "[webpack] Frontend building",
+          "built": "Compiled successfully.",
+          "build-error": "[webpack] Frontend build error"
+        },
+        "startCommand": "npm start"
+      }
+    },
+    "pages": [
+      {
+        "name": "HomePage",
+        "route": "/",
+        "path": "frontend/pages/HomePage"
+      }
+    ],
+    "serviceMap": {}
+  }
+}
